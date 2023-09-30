@@ -17,7 +17,12 @@ import {
 } from '@mantine/core';
 import { GoogleButton } from './../../components/social/GoogleButton';
 import { TwitterButton } from './../../components/social/XButton';
-export function AuthPage(props: PaperProps) {
+
+interface AuthPageProps {
+    mode: string;
+}
+export function AuthPage(props: AuthPageProps) {
+    console.log('mode:', props.mode);
     const [type, toggle] = useToggle(['login', 'register']);
     const styles = {
         bg: 'var(--mantine-color-blue-light)',
