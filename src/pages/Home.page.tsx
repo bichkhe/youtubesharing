@@ -1,9 +1,11 @@
 
-import { AppShell, Burger } from "@mantine/core";
+import { AppShell, Burger, MantineTheme } from "@mantine/core";
 import { useDisclosure } from '@mantine/hooks';
 import { Header } from "../components/header/Header";
 export function HomePage() {
   const [opened, { toggle }] = useDisclosure();
+  const styles = (theme: MantineTheme) => ({
+  });
   return (
     <>
       <AppShell
