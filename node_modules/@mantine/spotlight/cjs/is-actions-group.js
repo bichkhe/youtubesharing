@@ -1,0 +1,11 @@
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+function isActionsGroup(item) {
+  const _item = item;
+  return _item.group !== void 0 && Array.isArray(_item.actions);
+}
+
+exports.isActionsGroup = isActionsGroup;
+//# sourceMappingURL=is-actions-group.js.map

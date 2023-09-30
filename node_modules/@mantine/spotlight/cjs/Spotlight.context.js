@@ -1,0 +1,13 @@
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var core = require('@mantine/core');
+
+const [SpotlightProvider, useSpotlightContext] = core.createSafeContext(
+  "Spotlight component was not found in tree"
+);
+
+exports.SpotlightProvider = SpotlightProvider;
+exports.useSpotlightContext = useSpotlightContext;
+//# sourceMappingURL=Spotlight.context.js.map
