@@ -1,14 +1,15 @@
 
-import { AppShell, Burger, Container, MantineTheme } from "@mantine/core";
+import { AppShell, Box, Burger, Button, Container, Flex, Group, MantineTheme, createTheme } from "@mantine/core";
 import { useDisclosure } from '@mantine/hooks';
 import { Header } from "../container/header/Header";
 import { VideoCard } from "../components/Card/VideoCard";
 import { useState } from 'react';
 import { Movie } from '@/model/movie';
+import { Link } from "react-router-dom";
+import classes from './Home.module.css';
+
 export function HomePage() {
   const [opened, { toggle }] = useDisclosure();
-  const styles = (theme: MantineTheme) => ({
-  });
   const [movies, setMovies] = useState<Movie[]>([
     {
       id: 1,
@@ -19,7 +20,7 @@ export function HomePage() {
       shared_at: '',
       shared_by: 'mr.bichkhe@gmail.com',
       title: 'We are number one csdsfsdfsdfsdfdsfsdf sfdsfsdfsdf',
-      description: '',
+      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
     },
     {
       id: 2,
@@ -65,14 +66,30 @@ export function HomePage() {
   return (
     <>
       <AppShell
-        header={{ height: 60 }}
-        padding="md"
+        header={{ height: { base: 48, sm: 60 } }}
+        navbar={{ width: { sm: 0, lg: 0 }, breakpoint: 'sm', collapsed: { mobile: !opened } }}
       >
         <AppShell.Header>
-          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-          <Header />
+          <Container className={classes.header}>
+            <Burger style={{
+            }} opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+            <Box style={{
+              display: 'flex',
+              alignItems: 'center'
+            }}>
+              <Header />
+            </Box>
+            <Group
+              visibleFrom="sm"
+              style={{
+              }}
+            >
+              <Button component={Link} to="/auth" variant="default">Register</Button>
+              <Button component={Link} to="/auth?mode=login" variant="filled">Login</Button>
+            </Group>
+          </Container>
         </AppShell.Header>
-
+        <AppShell.Navbar p="md">Navbar</AppShell.Navbar>
         <Container>
           <AppShell.Main>
             {movies.map((item, _) => (
@@ -80,7 +97,7 @@ export function HomePage() {
             ))}
           </AppShell.Main>
         </Container>
-      </AppShell>
+      </AppShell >
     </>
   );
 }

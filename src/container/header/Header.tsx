@@ -1,4 +1,4 @@
-import { Title, Text, Anchor, Box, Container, ThemeIcon, Flex, TextInput, Button } from '@mantine/core';
+import { Title, Text, Anchor, Box, Container, ThemeIcon, Flex, TextInput, Button, Group } from '@mantine/core';
 import classes from './Header.module.css';
 import { IconBrandYoutubeFilled, IconHome2 } from '@tabler/icons-react';
 import { Logo } from '../../components/Logo/Logo';
@@ -7,13 +7,16 @@ import { Link } from 'react-router-dom';
 export function Header() {
   return (
     <>
-      <Container className={classes.wrapper}>
+      <Container
+        // size="responsive"
+        style={{
+          // justifyContent: 'space-between',
+          // display: 'flex',
+          // alignItems: 'center',
+          // marginTop: '10px'
+        }}>
         <Logo />
-        <Flex justify="center" align="center">
-          <Button component={Link} to="/auth" variant="default">Register</Button>
-          <Button component={Link} to="/auth?mode=login" variant="filled">Login</Button>
-        </Flex >
-      </Container >
+      </Container>
     </>
   );
 }

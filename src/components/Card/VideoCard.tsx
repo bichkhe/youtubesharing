@@ -78,8 +78,9 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 
 						<Text size="sm" c="dimmed" lineClamp={4} inline>
 							<h6>Description:</h6>
-							<Text>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-								It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+							<Text>
+								{' '}
+								{video.description}
 							</Text>
 						</Text>
 					</Card>

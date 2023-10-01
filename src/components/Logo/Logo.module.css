@@ -1,0 +1,12 @@
+.logo {
+  @media (max-width: $mantine-breakpoint-sm) {
+    font-size: 10px;
+  }
+}
+
+.title {
+  @media (max-width: $mantine-breakpoint-sm) {
+    font-size: 12px;
+    font-weight: 400;
+  }
+}
