@@ -19,3 +19,11 @@
     justify-content: flex-start;
   }
 }
+
+.main {
+  margin-top: 68px;
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    margin-top: 0px;
+  }
+}

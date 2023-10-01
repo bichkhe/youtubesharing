@@ -1,4 +1,4 @@
-import { Flex, Text, Card, Group, Badge, Button, AspectRatio, Grid, ActionIcon, rem, Container, Box, Tooltip } from '@mantine/core';
+import { Flex, Text, Card, Group, Badge, Button, AspectRatio, Grid, ActionIcon, rem, Container, Box, Tooltip, Title } from '@mantine/core';
 import { IconThumbDown, IconThumbUp } from '@tabler/icons-react';
 import classes from './VideoCard.module.css';
 import { Movie } from '@/model/movie';
@@ -8,20 +8,20 @@ interface Props {
 export const VideoCard: React.FC<Props> = ({ video }) => {
 	return (
 		<>
-			<Flex direction="row" columnGap="10px" justify="center" align="end" className={classes.wrapper} mt="10px">
-				<Box>
+			<Flex className={classes.wrapper} mt="10px">
+				<Box className={classes.video}>
 					<iframe
 						src={video.url}
 						title="YouTube video player"
 						style={{ border: 0 }}
-						width="360px"
-						height="270px"
+						width="100%"
+						height="280px"
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 						allowFullScreen
 					/>
 				</Box>
-				<Box>
-					<Card padding="sm">
+				<Box className={classes.videoInfo}>
+					<Card h="280px" shadow='md' className={classes.videoInfoCard} >
 						<Group justify="space-between" className={classes.titleWrapper}>
 							<Tooltip label={video.title}>
 								<Text c="red" size="lg" fw={800}
@@ -48,12 +48,11 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 									<IconThumbDown />
 								</ActionIcon>
 							</div>
-
 						</Group>
 						<Group justify="space-between" mt="sm">
 							<Text fw={500} fz="0.8rem">Shared by: {video.shared_by}</Text>
 						</Group>
-						<Group justify="left" mt="md">
+						<Group justify="left" mt="md" gap='3px'>
 							<ActionIcon
 								variant="gradient"
 								p="xs"
@@ -69,16 +68,16 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 								p="xs"
 								size="xxl"
 								aria-label="Gradient action icon"
-								gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+								gradient={{ from: 'red', to: 'yellow', deg: 90 }}
 							>
 								{video.votedown}
 								<IconThumbDown />
 							</ActionIcon>
 						</Group>
 
-						<Text size="sm" c="dimmed" lineClamp={4} inline>
-							<h6>Description:</h6>
-							<Text>
+						<Text size="sm" c="dimmed" lineClamp={4} inline my="10px">
+							<Title size="h6" fw="500px" fz="12px">Description:</Title>
+							<Text my="10px">
 								{' '}
 								{video.description}
 							</Text>

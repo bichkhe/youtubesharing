@@ -1,9 +1,24 @@
 .wrapper {
   display: flex;
   justify-content: center;
-  align-items: center;
   align-self: stretch;
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    flex-direction: column;
+  }
 }
+
+
+.video {
+  flex-basis: 40%;
+}
+
+.videoInfo {
+  flex-basis: 60%;
+  min-height: 270px;
+  max-height: 400px;
+}
+
 
 .titleWrapper {
   flex-wrap: nowrap;

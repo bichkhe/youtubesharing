@@ -1,5 +1,5 @@
 
-import { AppShell, Box, Burger, Button, Container, Flex, Group, MantineTheme, createTheme } from "@mantine/core";
+import { AppShell, Box, Burger, Button, Container, Flex, Group, MantineTheme, ScrollArea, createTheme } from "@mantine/core";
 import { useDisclosure } from '@mantine/hooks';
 import { Header } from "../container/header/Header";
 import { VideoCard } from "../components/Card/VideoCard";
@@ -20,7 +20,7 @@ export function HomePage() {
       shared_at: '',
       shared_by: 'mr.bichkhe@gmail.com',
       title: 'We are number one csdsfsdfsdfsdfdsfsdf sfdsfsdfsdf',
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
     },
     {
       id: 2,
@@ -30,7 +30,8 @@ export function HomePage() {
       voted: 0,
       shared_at: '',
       shared_by: 'mr.bichkhe@gmail.com',
-      title: 'Sugar - Maroon 5'
+      title: 'Sugar - Maroon 5',
+      description: 'Lorem Ipsum is',
     },
     {
       id: 3,
@@ -40,7 +41,8 @@ export function HomePage() {
       voted: 0,
       shared_at: '',
       shared_by: 'mr.bichkhe@gmail.com',
-      title: 'Sugar - Maroon 5'
+      title: 'Sugar - Maroon 5',
+      description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
     },
     {
       id: 4,
@@ -63,6 +65,7 @@ export function HomePage() {
       title: 'Sugar - Maroon 5'
     }
   ])
+
   return (
     <>
       <AppShell
@@ -89,15 +92,17 @@ export function HomePage() {
             </Group>
           </Container>
         </AppShell.Header>
-        <AppShell.Navbar p="md">Navbar</AppShell.Navbar>
-        <Container>
-          <AppShell.Main>
+        <AppShell.Navbar p="md" hiddenFrom="sm">Navbar</AppShell.Navbar>
+
+        <AppShell.Main className={classes.main}>
+          <Container>
             {movies.map((item, _) => (
               <VideoCard video={item} />
             ))}
-          </AppShell.Main>
-        </Container>
+          </Container>
+        </AppShell.Main>
       </AppShell >
+
     </>
   );
 }
