@@ -1,38 +1,49 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 
+export const AUTH_TOKEN = "youtubesharing.auth_token"
 export const api = axios.create({
-	baseURL: "https://nt-api.fly.dev",
-	// baseURL: 'http://localhost:9999',
+	baseURL: "http://192.168.0.10:9800",
 	headers: {
 		"Content-Type": "application/json",
-		"Access-Control-Allow-Origin": "https://yoububesharing.vn",
+		"Access-Control-Allow-Origin": "*",
 	},
 });
 
+api.interceptors.response.use(
+	function (response) {
+		if (response.data) {
+			// return success
+			if (response.status === 200 || response.status === 201) {
+				return response;
+			}
+			return Promise.reject(response);
+		}
+
+		return Promise.reject(response);
+	},
+	function (error: AxiosError) {
+		return Promise.reject(error);
+	}
+);
+
 export const fetcher = async <Data>(url: string) => {
-	const token = localStorage.getItem("nil9.auth_token");
+	const token = localStorage.getItem(AUTH_TOKEN);
 	console.log(token);
 	const response = await api.request<Data, AxiosResponse<Data>>({
 		url,
-		headers: {
-			"Content-Type": "application/json",
-			"Access-Control-Allow-Origin": "http://yoububesharing:9112",
-			Authorization: "Bearer " + token,
-		},
+		headers: buildHeadersWithToken()
 	});
 
 	return response.data as Data;
 };
 
+
 export const post = async <Data>(url: string, data: any) => {
-	const token = localStorage.getItem("yoububesharing.auth_token");
+
 	const response = await api.post<Data, AxiosResponse<Data>>(url, data, {
-		headers: {
-			"Content-Type": "application/json",
-			"Access-Control-Allow-Origin": "https://yoububesharing.vn",
-			Authorization: "Bearer " + token,
-		},
+		headers: buildHeadersWithToken()
 	});
+
 	if (!response) {
 		return null;
 	}
@@ -43,7 +54,27 @@ export const post = async <Data>(url: string, data: any) => {
 	return response.data as Data;
 };
 export const get = async <Data>(url: string) => {
-	const response = await api.get<Data, AxiosResponse<Data>>(url);
-
+	const token = localStorage.getItem(AUTH_TOKEN);
+	const response = await api.get<Data, AxiosResponse<Data>>(url, {
+		headers: buildHeadersWithToken()
+	});
 	return response.data as Data;
 };
+
+export interface ResponseError {
+	code: number;
+	error_message: string;
+}
+
+export function isResponseError(item: any): item is ResponseError {
+	return 'error_message' in item;
+}
+
+const buildHeadersWithToken = () => {
+	const token = localStorage.getItem(AUTH_TOKEN);
+	return {
+		"Content-Type": "application/json",
+		"Access-Control-Allow-Origin": "*",
+		Authorization: "Bearer " + token,
+	}
+}

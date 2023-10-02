@@ -3,18 +3,20 @@ import { AppShell, Box, Burger, Button, Container, Flex, Group, MantineTheme, Sc
 import { useDisclosure } from '@mantine/hooks';
 import { Header } from "../container/header/Header";
 import { VideoCard } from "../components/Card/VideoCard";
-import { useState } from 'react';
-import { Movie } from '@/model/movie';
+import { useEffect, useState } from 'react';
+import { VideoResponse } from '../api/video/types';
 import { Layout } from "../layout";
+import { getVideos } from "../api/video";
+import { isResponseError } from "../api/global/api";
 
 export function HomePage() {
   const [opened, { toggle }] = useDisclosure();
-  const [movies, setMovies] = useState<Movie[]>([
+  const [videos, setVideos] = useState<VideoResponse[]>([
     {
       id: 1,
       url: 'https://www.youtube.com/embed/mzJ4vCjSt28',
       votedup: 0,
-      votedown: 0,
+      voteddown: 0,
       voted: 0,
       shared_at: '',
       shared_by: 'mr.bichkhe@gmail.com',
@@ -25,7 +27,7 @@ export function HomePage() {
       id: 2,
       url: 'https://www.youtube.com/embed/09R8_2nJtjg?si=Uzt8W4HpkPPFWFsq',
       votedup: 100,
-      votedown: 10,
+      voteddown: 10,
       voted: 0,
       shared_at: '',
       shared_by: 'mr.bichkhe@gmail.com',
@@ -36,7 +38,7 @@ export function HomePage() {
       id: 3,
       url: 'https://www.youtube.com/embed/mzJ4vCjSt28',
       votedup: 0,
-      votedown: 0,
+      voteddown: 0,
       voted: 0,
       shared_at: '',
       shared_by: 'mr.bichkhe@gmail.com',
@@ -47,7 +49,7 @@ export function HomePage() {
       id: 4,
       url: 'https://www.youtube.com/embed/mzJ4vCjSt28',
       votedup: 0,
-      votedown: 0,
+      voteddown: 0,
       voted: 0,
       shared_at: '',
       shared_by: 'mr.bichkhe@gmail.com',
@@ -57,7 +59,7 @@ export function HomePage() {
       id: 5,
       url: 'https://www.youtube.com/embed/mzJ4vCjSt28',
       votedup: 0,
-      votedown: 0,
+      voteddown: 0,
       voted: 0,
       shared_at: '',
       shared_by: 'mr.bichkhe@gmail.com',
@@ -65,11 +67,21 @@ export function HomePage() {
     }
   ])
 
+  const fetchVideos = async () => {
+    const videos = await getVideos({})
+    if (!isResponseError(videos)) {
+      setVideos(videos)
+    }
+  }
+  useEffect(() => {
+    fetchVideos()
+  }, [])
+
   return (
     <>
       <Layout>
         <Box>
-          {movies.map((item, _) => (
+          {videos.map((item, _) => (
             <VideoCard video={item} />
 
           ))}

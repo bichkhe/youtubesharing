@@ -1,11 +1,21 @@
+
 export interface LoginRequest {
   email: string;
-  pwd: string;
+  password: string;
 }
 
-interface Token {
-  token: string;
-}
+
 export interface LoginResponse {
-  data: Token;
+  id: number;
+  email: string;
+  sessionToken: string;
+  expiredAt: string;
+  createdAt: string,
+}
+
+
+
+export interface LogoutResponse {
+  code: number,
+  success_message: string;
 }

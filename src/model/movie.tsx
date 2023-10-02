@@ -1,4 +1,4 @@
-export interface Movie {
+export interface Video {
     id: number;
     url: string;
     votedup: number;
@@ -10,14 +10,14 @@ export interface Movie {
     description?: string;
 }
 
-export interface MovieForSharing {
+export interface VideoForSharing {
     url: string;
     shared_by: string;
     shared_at: string;
     description: string;
 }
 
-export interface MovieForVote {
+export interface VideoForVote {
     id: number;
     url: string;
     voted: number; // 1: up, 2: down

@@ -14,22 +14,36 @@ import {
     Anchor,
     Stack,
     Container,
+    Title,
 } from '@mantine/core';
 import { GoogleButton } from './../../components/social/GoogleButton';
 import { TwitterButton } from './../../components/social/XButton';
-
+import { login } from '../../api/auth/';
+import { Link, useNavigate } from "react-router-dom";
+import { notifications } from '@mantine/notifications';
+import { IconArrowLeft, IconCheck, IconX } from '@tabler/icons-react';
+import { LoginResponse } from '../../api/auth/types'
+import { ResponseError, isResponseError } from '../../api/global/api';
+import { useLocation } from 'react-router-dom'
+import { useEffect } from 'react';
 interface AuthPageProps {
     mode?: string;
 }
 export function AuthPage(props: AuthPageProps) {
-    console.log('mode:', props.mode);
+    const location = useLocation()
+    const { mode } = location.state
+    let navigate = useNavigate();
+    console.log('mode:', props.mode, mode);
     const [type, toggle] = useToggle(['login', 'register']);
+    useEffect(() => {
+        toggle(mode)
+    }, [mode])
 
     const form = useForm({
         initialValues: {
-            email: '',
-            name: '',
-            password: '',
+            email: 'mr.bichkhe@gmail.com',
+            name: 'Tuan Phung',
+            password: '123456789@#!',
             terms: true,
         },
 
@@ -39,9 +53,48 @@ export function AuthPage(props: AuthPageProps) {
         },
     });
 
+    const handleAuth = async () => {
+        if (type == "login") {
+            handleLogin()
+        } else {
+
+        }
+    }
+    const handleLogin = async () => {
+        console.log('handleLogin:', form.values)
+
+        const req = {
+            email: form.values.email,
+            password: form.values.password
+        }
+        const res = await login(req) as LoginResponse | ResponseError;
+        if (!isResponseError(res)) {
+            notifications.show({
+                color: 'green',
+                title: 'Login Successfully',
+                message: '',
+                autoClose: true,
+                icon: <IconCheck />,
+            })
+            localStorage.setItem("youtubesharing.auth_token", res.sessionToken)
+            navigate('/')
+        } else {
+            notifications.show({
+                color: 'red',
+                title: 'Login Failed',
+                message: res.error_message,
+                autoClose: true,
+                icon: <IconX />,
+            })
+        }
+    }
+
     return (
         <>
             <Container maw="30rem" mt={"5rem"}>
+                <Link to={"/"} >
+                    <IconArrowLeft />
+                </Link>
                 <Paper withBorder shadow="md" p={30} mt={30} radius="md">
                     <Text size="lg" fw={700}>
                         Welcome to Youtube Sharing, {type} with
@@ -53,7 +106,7 @@ export function AuthPage(props: AuthPageProps) {
 
                     <Divider label="Or continue with email" labelPosition="center" my="lg" />
 
-                    <form onSubmit={form.onSubmit(() => { })}>
+                    <form onSubmit={form.onSubmit(() => { handleAuth() })}>
                         <Stack>
                             {type === 'register' && (
                                 <TextInput
@@ -81,7 +134,7 @@ export function AuthPage(props: AuthPageProps) {
                                 placeholder="Your password"
                                 value={form.values.password}
                                 onChange={(event) => form.setFieldValue('password', event.currentTarget.value)}
-                                error={form.errors.password && 'Password should include at least 6 characters'}
+                                error={form.errors.password && ['Password should include at least 6 characters']}
                                 radius="md"
                             />
 
