@@ -1,5 +1,5 @@
 import { Container, createTheme, rem } from '@mantine/core';
-import classes from './pages/Home.module.css';
+import classes from './layout.module.css';
 import cx from 'clsx';
 const theme = createTheme({
   shadows: {
@@ -26,6 +26,7 @@ const theme = createTheme({
       h1: { fontSize: rem(36) },
     },
   },
+  primaryColor: 'blue',
 });
 
 export default theme;

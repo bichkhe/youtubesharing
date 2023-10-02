@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { HomePage } from './pages/Home';
+import { HomePage } from './pages/Home.page';
 import { AuthPage } from './pages/auth/Auth.page';
 import { YoutubeBoardPage } from './pages/YoutubeBoard.page';
 

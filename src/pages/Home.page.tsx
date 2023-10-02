@@ -5,8 +5,7 @@ import { Header } from "../container/header/Header";
 import { VideoCard } from "../components/Card/VideoCard";
 import { useState } from 'react';
 import { Movie } from '@/model/movie';
-import { Link } from "react-router-dom";
-import classes from './Home.module.css';
+import { Layout } from "../layout";
 
 export function HomePage() {
   const [opened, { toggle }] = useDisclosure();
@@ -68,41 +67,14 @@ export function HomePage() {
 
   return (
     <>
-      <AppShell
-        header={{ height: { base: 48, sm: 60 } }}
-        navbar={{ width: { sm: 0, lg: 0 }, breakpoint: 'sm', collapsed: { mobile: !opened } }}
-      >
-        <AppShell.Header>
-          <Container className={classes.header}>
-            <Burger style={{
-            }} opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-            <Box style={{
-              display: 'flex',
-              alignItems: 'center'
-            }}>
-              <Header />
-            </Box>
-            <Group
-              visibleFrom="sm"
-              style={{
-              }}
-            >
-              <Button component={Link} to="/auth" variant="default">Register</Button>
-              <Button component={Link} to="/auth?mode=login" variant="filled">Login</Button>
-            </Group>
-          </Container>
-        </AppShell.Header>
-        <AppShell.Navbar p="md" hiddenFrom="sm">Navbar</AppShell.Navbar>
+      <Layout>
+        <Box>
+          {movies.map((item, _) => (
+            <VideoCard video={item} />
 
-        <AppShell.Main className={classes.main}>
-          <Container>
-            {movies.map((item, _) => (
-              <VideoCard video={item} />
-            ))}
-          </Container>
-        </AppShell.Main>
-      </AppShell >
-
+          ))}
+        </Box>
+      </Layout>
     </>
   );
 }
