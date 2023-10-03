@@ -15,17 +15,19 @@ import {
     Stack,
     Container,
     Title,
+    ThemeIcon,
 } from '@mantine/core';
 import { GoogleButton } from './../../components/social/GoogleButton';
 import { TwitterButton } from './../../components/social/XButton';
 import { login } from '../../api/auth/';
 import { Link, useNavigate } from "react-router-dom";
 import { notifications } from '@mantine/notifications';
-import { IconArrowLeft, IconCheck, IconX } from '@tabler/icons-react';
+import { IconBrandYoutubeFilled, IconCheck, IconX } from '@tabler/icons-react';
 import { LoginResponse } from '../../api/auth/types'
 import { ResponseError, isResponseError } from '../../api/global/api';
 import { useLocation } from 'react-router-dom'
 import { useEffect } from 'react';
+import { Logo } from '../../components/Logo/Logo';
 interface AuthPageProps {
     mode?: string;
 }
@@ -93,9 +95,11 @@ export function AuthPage(props: AuthPageProps) {
         <>
             <Container maw="30rem" mt={"5rem"}>
                 <Link to={"/"} >
-                    <IconArrowLeft />
+                    <ThemeIcon size="xl">
+                        <IconBrandYoutubeFilled style={{ width: '70%', height: '70%' }} />
+                    </ThemeIcon>
                 </Link>
-                <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+                <Paper withBorder shadow="md" p={30} mt={30} radius="xs">
                     <Text size="lg" fw={700}>
                         Welcome to Youtube Sharing, {type} with
                     </Text>
