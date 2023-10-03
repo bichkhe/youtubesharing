@@ -3,7 +3,7 @@ import { AppShell, Box, Burger, Button, Container, Group, Menu, rem, } from "@ma
 import { useDisclosure } from '@mantine/hooks';
 import { Header } from "./container/header/Header";
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import classes from './layout.module.css';
 import { AUTH_TOKEN, isResponseError } from "./api/global/api";
 import { logout } from "./api/auth";
@@ -14,6 +14,7 @@ export function Layout(props: { children: React.ReactNode }) {
     const [opened, { toggle }] = useDisclosure();
     const isLoggedIn = localStorage.getItem(AUTH_TOKEN) != null
     const [refesh, setRefresh] = useState(false)
+    const navigate = useNavigate()
     const handleLogout = async () => {
         const res = await logout()
         localStorage.clear()
@@ -25,7 +26,8 @@ export function Layout(props: { children: React.ReactNode }) {
                 autoClose: true,
                 icon: <IconCheck />,
             })
-            setRefresh(!refesh)
+            navigate('/')
+            // setRefresh(!refesh)
         }
     }
     return (

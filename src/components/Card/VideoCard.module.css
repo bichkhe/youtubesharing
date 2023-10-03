@@ -9,6 +9,7 @@
 }
 
 
+
 .video {
   flex-basis: 40%;
 }
@@ -29,4 +30,19 @@
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+
+.linkWrapper {
+  @media (max-width: $mantine-breakpoint-sm) {
+    flex-direction: column
+  }
+}
+
+.videoPreview {
+  flex-basis: 100%;
+}
+
+.videoLink {
+  width: 90%;
 }

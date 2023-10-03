@@ -1,9 +1,9 @@
 import { Flex, Text, Card, Group, Badge, Button, AspectRatio, Grid, ActionIcon, rem, Container, Box, Tooltip, Title } from '@mantine/core';
 import { IconThumbDown, IconThumbUp } from '@tabler/icons-react';
 import classes from './VideoCard.module.css';
-import { Movie } from '@/model/movie';
+import { Video } from '@/model/movie';
 interface Props {
-	video: Movie;
+	video: Video;
 };
 export const VideoCard: React.FC<Props> = ({ video }) => {
 	return (
