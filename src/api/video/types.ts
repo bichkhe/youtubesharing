@@ -5,15 +5,57 @@ export interface VideoRequest {
 
 export interface VideoResponse {
   id: number;
-  url: string;
-  shared_by: string;
-  shared_at: string;
+  linkUrl: string;
+  email: string;
   title: string;
-  description?: string;
-  votedup: number;
-  voteddown: number;
+  content?: string;
+  votedUp: number;
+  votedDown: number;
   voted: number;
-  expiredAt?: string;
+  published: boolean,
+  authorId: number;
   createdAt?: string,
+  updatedAt?: string,
 }
+export interface VideoForSharing {
+  linkUrl: string;
+  title: string;
+  content?: string;
+}
+
+
+export interface VideoForVote {
+  id: string;
+  vote: string;
+}
+
+
+export interface VideoResponseForSharing {
+  id: number;
+  linkUrl: string;
+  email: string;
+  title: string;
+  content?: string;
+  votedUp: number;
+  votedDown: number;
+  published: boolean,
+  authorId: number;
+  createdAt?: string,
+  updatedAt?: string,
+}
+
+export interface VideoResponseForVote {
+  id: number;
+  linkUrl: string;
+  email: string;
+  title: string;
+  content?: string;
+  votedUp: number;
+  votedDown: number;
+  published: boolean,
+  authorId: number;
+  createdAt?: string,
+  updatedAt?: string,
+}
+
 

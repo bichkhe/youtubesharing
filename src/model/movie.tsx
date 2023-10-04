@@ -1,26 +1,26 @@
 export interface Video {
     id: number;
-    url: string;
-    votedup: number;
-    votedown: number;
+    linkUrl: string;
+    votedUp: number;
+    votedDown: number;
     voted: number; // 0: is not voted yet, 1: up, 2 down
-    shared_by: string;
-    shared_at: string;
+    email: string;
+    createdAt: string;
     title: string;
-    description?: string;
+    content?: string;
 }
 
 export interface VideoForSharing {
     url: string;
-    shared_by: string;
-    shared_at: string;
-    description: string;
+    title: string;
+    content: string;
 }
-
+export enum VoteKind {
+    UP,
+    DOWN,
+    NONE
+}
 export interface VideoForVote {
     id: number;
-    url: string;
-    voted: number; // 1: up, 2: down
-    voted_at: string;
-    // voted_by: string; // we get user in token 
+    vote: VoteKind
 }

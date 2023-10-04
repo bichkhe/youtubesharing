@@ -11,7 +11,7 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 			<Flex className={classes.wrapper} mt="10px">
 				<Box className={classes.video}>
 					<iframe
-						src={video.url}
+						src={video.linkUrl}
 						title="YouTube video player"
 						style={{ border: 0 }}
 						width="100%"
@@ -50,7 +50,7 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 							</div>
 						</Group>
 						<Group justify="space-between" mt="sm">
-							<Text fw={500} fz="0.8rem">Shared by: {video.shared_by}</Text>
+							<Text fw={500} fz="0.8rem">Shared by: {video.email}</Text>
 						</Group>
 						<Group justify="left" mt="md" gap='3px'>
 							<ActionIcon
@@ -60,7 +60,7 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 								aria-label="Gradient action icon"
 								gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
 							>
-								{video.votedup}
+								{video.votedUp}
 								<IconThumbUp />
 							</ActionIcon>
 							<ActionIcon
@@ -70,7 +70,7 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 								aria-label="Gradient action icon"
 								gradient={{ from: 'red', to: 'yellow', deg: 90 }}
 							>
-								{video.votedown}
+								{video.votedDown}
 								<IconThumbDown />
 							</ActionIcon>
 						</Group>
@@ -79,7 +79,7 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 							<Title size="h6" fw="500px" fz="12px">Description:</Title>
 							<Text my="10px">
 								{' '}
-								{video.description}
+								{video.content}
 							</Text>
 						</Text>
 					</Card>

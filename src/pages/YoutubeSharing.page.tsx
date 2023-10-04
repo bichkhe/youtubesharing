@@ -5,12 +5,17 @@ import { useState } from "react";
 import { validateYouTubeUrl } from "../util/link";
 import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
-import { IconId, IconPencilPlus, IconShare3 } from "@tabler/icons-react";
+import { IconCheck, IconId, IconPencilPlus, IconShare3, IconX } from "@tabler/icons-react";
+import { sharingYoutubeVideo } from "../api/video";
+import { isResponseError } from "../api/global/api";
+import { notifications } from "@mantine/notifications";
+import { useNavigate } from "react-router-dom";
 const DEFAULT_LINK = 'https://www.youtube.com/embed/BlWfTnDcZ6Q?si=iHV2H9_YGRjw_j5R'
 export function YoutubeSharingPage() {
     const [opened, { toggle }] = useDisclosure(false);
     const [link, setLink] = useState('https://www.youtube.com/embed/BlWfTnDcZ6Q?si=iHV2H9_YGRjw_j5R');
     const [errorLink, setErrorLink] = useState('')
+    const navigate = useNavigate()
     const handleReset = () => {
         setLink(DEFAULT_LINK)
     }
@@ -36,6 +41,33 @@ export function YoutubeSharingPage() {
 
         validate: {},
     });
+    const handleSubmitSharing = async () => {
+        form.validate()
+        const res = await sharingYoutubeVideo({
+            title: form.values?.title,
+            content: form.values?.description,
+            linkUrl: link,
+        })
+        if (!isResponseError(res)) {
+            notifications.show({
+                color: 'green',
+                title: 'Sharing Successfully',
+                message: '',
+                autoClose: true,
+                icon: <IconCheck />,
+            })
+            // navigate('/')
+            form.reset()
+        } else {
+            notifications.show({
+                color: 'red',
+                title: 'Sharing Failed',
+                message: res.error_message,
+                autoClose: true,
+                icon: <IconX />,
+            })
+        }
+    }
     return (
         <>
             <Layout>
@@ -57,7 +89,7 @@ export function YoutubeSharingPage() {
                                 <Badge leftSection={<IconId size={15} />} color="blue" onClick={toggle}>Video Information</Badge>
                             </Group>
                             <Collapse in={!opened} transitionDuration={500} transitionTimingFunction="linear">
-                                <form onSubmit={form.onSubmit((values) => console.log(values))}>
+                                <form onSubmit={form.onSubmit((values) => handleSubmitSharing)}>
                                     <TextInput
                                         withAsterisk
                                         label="Video Title"
@@ -70,7 +102,7 @@ export function YoutubeSharingPage() {
                                     />
                                     <Group justify="flex-end" mt="md" gap="3px">
                                         <Button onClick={handleReset} size="sm" hiddenFrom="sm">Reset</Button>
-                                        <Button leftSection={<IconShare3 size={15} />} type="submit">Submit</Button>
+                                        <Button onClick={handleSubmitSharing} leftSection={<IconShare3 size={15} />} type="submit">Submit</Button>
                                     </Group>
                                 </form>
                             </Collapse>
