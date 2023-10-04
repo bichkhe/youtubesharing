@@ -3,7 +3,7 @@ export interface Video {
     linkUrl: string;
     votedUp: number;
     votedDown: number;
-    voted: number; // 0: is not voted yet, 1: up, 2 down
+    voted: string; // 0: is not voted yet, 1: up, 2 down
     email: string;
     createdAt: string;
     title: string;

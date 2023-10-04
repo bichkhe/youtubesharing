@@ -1,11 +1,27 @@
 import { Flex, Text, Card, Group, Badge, Button, AspectRatio, Grid, ActionIcon, rem, Container, Box, Tooltip, Title } from '@mantine/core';
-import { IconThumbDown, IconThumbUp } from '@tabler/icons-react';
+import { IconTemperature, IconThumbDown, IconThumbUp } from '@tabler/icons-react';
 import classes from './VideoCard.module.css';
 import { Video } from '@/model/movie';
+import { voteYoutubeVideo } from '../../api/video';
 interface Props {
 	video: Video;
 };
 export const VideoCard: React.FC<Props> = ({ video }) => {
+
+	const handleVoteUp = async () => {
+		await voteYoutubeVideo({
+			id: video.id,
+			vote: "UP"
+		})
+
+	}
+	const handleVoteDown = async () => {
+		await voteYoutubeVideo({
+			id: video.id,
+			vote: "DOWN"
+		})
+
+	}
 	return (
 		<>
 			<Flex className={classes.wrapper} mt="10px">
@@ -31,22 +47,28 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 								</Text>
 							</Tooltip>
 							<div style={{
-								display: 'flex'
+								display: 'flex',
+								alignItems: 'center',
+								gap: '5px'
 							}}>
-								<ActionIcon
+								{video.voted && <Text fw={400} fz={14}>You voted</Text>}
+								{video.voted && video.voted == "UP" && <ActionIcon
 									p="xs"
 									size="xl"
 									aria-label="Gradient action icon"
 								>
+
 									<IconThumbUp />
 								</ActionIcon>
-								<ActionIcon
+								}
+								{video.voted && video.voted == "DOWN" && <ActionIcon
 									p="xs"
 									size="xl"
 									ml="2px"
 								>
 									<IconThumbDown />
 								</ActionIcon>
+								}
 							</div>
 						</Group>
 						<Group justify="space-between" mt="sm">
@@ -59,6 +81,7 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 								size="xxl"
 								aria-label="Gradient action icon"
 								gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+								onClick={handleVoteUp}
 							>
 								{video.votedUp}
 								<IconThumbUp />
@@ -69,6 +92,7 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 								size="xxl"
 								aria-label="Gradient action icon"
 								gradient={{ from: 'red', to: 'yellow', deg: 90 }}
+								onClick={handleVoteDown}
 							>
 								{video.votedDown}
 								<IconThumbDown />

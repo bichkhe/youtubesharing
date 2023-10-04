@@ -17,5 +17,16 @@ export interface LoginResponse {
 
 export interface LogoutResponse {
   code: number,
-  success_message: string;
+  error_message: string;
+}
+
+
+export interface RegisterRequest {
+  name?: string;
+  email: string;
+  password: string;
+}
+export interface RegisterResponse {
+  code: number,
+  error_message: string;
 }

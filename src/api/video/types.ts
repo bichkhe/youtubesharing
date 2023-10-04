@@ -11,11 +11,13 @@ export interface VideoResponse {
   content?: string;
   votedUp: number;
   votedDown: number;
-  voted: number;
   published: boolean,
   authorId: number;
   createdAt?: string,
   updatedAt?: string,
+
+  // voting status of user creating this request
+  voted: string;
 }
 export interface VideoForSharing {
   linkUrl: string;
@@ -25,7 +27,7 @@ export interface VideoForSharing {
 
 
 export interface VideoForVote {
-  id: string;
+  id: number;
   vote: string;
 }
 

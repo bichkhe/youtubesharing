@@ -19,15 +19,14 @@ import {
 } from '@mantine/core';
 import { GoogleButton } from './../../components/social/GoogleButton';
 import { TwitterButton } from './../../components/social/XButton';
-import { login } from '../../api/auth/';
+import { login, register } from '../../api/auth/';
 import { Link, useNavigate } from "react-router-dom";
 import { notifications } from '@mantine/notifications';
 import { IconBrandYoutubeFilled, IconCheck, IconX } from '@tabler/icons-react';
-import { LoginResponse } from '../../api/auth/types'
+import { LoginResponse, RegisterResponse } from '../../api/auth/types'
 import { ResponseError, isResponseError } from '../../api/global/api';
 import { useLocation } from 'react-router-dom'
 import { useEffect } from 'react';
-import { Logo } from '../../components/Logo/Logo';
 interface AuthPageProps {
     mode?: string;
 }
@@ -59,11 +58,12 @@ export function AuthPage(props: AuthPageProps) {
         if (type == "login") {
             handleLogin()
         } else {
-
+            handleRegister()
         }
     }
     const handleLogin = async () => {
         console.log('handleLogin:', form.values)
+        form.validate()
 
         const req = {
             email: form.values.email,
@@ -89,16 +89,49 @@ export function AuthPage(props: AuthPageProps) {
                 icon: <IconX />,
             })
         }
+
+    }
+    const handleRegister = async () => {
+        console.log('handleRegister:', form.values)
+        const req = {
+            name: form.values.name,
+            email: form.values.email,
+            password: form.values.password
+        }
+        const res = await register(req) as RegisterResponse | ResponseError;
+        if (!isResponseError(res)) {
+            notifications.show({
+                color: 'green',
+                title: 'Register Successfully',
+                message: '',
+                autoClose: true,
+                icon: <IconCheck />,
+            })
+            navigate('/auth', { state: 'login' })
+        } else {
+            notifications.show({
+                color: 'red',
+                title: 'Register Failed',
+                message: res.error_message,
+                autoClose: true,
+                icon: <IconX />,
+            })
+        }
     }
 
     return (
         <>
             <Container maw="30rem" mt={"5rem"}>
-                <Link to={"/"} >
-                    <ThemeIcon size="xl">
-                        <IconBrandYoutubeFilled style={{ width: '70%', height: '70%' }} />
-                    </ThemeIcon>
-                </Link>
+                <Group justify="center">
+                    <Link to={"/"}  >
+                        <ThemeIcon size="xl">
+                            <IconBrandYoutubeFilled style={{ width: '70%', height: '70%' }} />
+                        </ThemeIcon>
+
+                    </Link>
+                    Youtube Sharing
+                </Group>
+
                 <Paper withBorder shadow="md" p={30} mt={30} radius="xs">
                     <Text size="lg" fw={700}>
                         Welcome to Youtube Sharing, {type} with
@@ -125,7 +158,7 @@ export function AuthPage(props: AuthPageProps) {
                             <TextInput
                                 required
                                 label="Email"
-                                placeholder="hello@youtubesharing.vn"
+                                placeholder="bichkhe@youtubesharing.vn"
                                 value={form.values.email}
                                 onChange={(event) => form.setFieldValue('email', event.currentTarget.value)}
                                 error={form.errors.email && 'Invalid email'}

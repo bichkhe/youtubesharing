@@ -39,7 +39,6 @@ export const fetcher = async <Data>(url: string) => {
 
 
 export const post = async <Data>(url: string, data: any) => {
-
 	const response = await api.post<Data, AxiosResponse<Data>>(url, data, {
 		headers: buildHeadersWithToken()
 	});
@@ -50,7 +49,6 @@ export const post = async <Data>(url: string, data: any) => {
 	if (response != null && response.status) {
 		console.log("status:", response.status);
 	}
-	// console.log('response:', response, url, data);
 	return response.data as Data;
 };
 export const get = async <Data>(url: string) => {

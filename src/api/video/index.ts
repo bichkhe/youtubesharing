@@ -26,7 +26,7 @@ export const sharingYoutubeVideo = async (data: VideoForSharing) => {
 
 export const voteYoutubeVideo = async (data: VideoForVote) => {
   try {
-    const res = (await post<VideoResponseForVote>("/api/videos/sharing", data));
+    const res = (await post<VideoResponseForVote>("/api/videos/vote", data));
     return res;
   } catch (error: any) {
     console.log('error', error.response.data);
