@@ -1,10 +1,11 @@
 import { get, post } from "../global/api";
-import { VideoForSharing, VideoForVote, VideoRequest, VideoResponse, VideoResponseForSharing, VideoResponseForVote } from "./types";
+import { VideoForSharing, VideoForVote, VideoRequest, VideoResponseForSharing, VideoResponseForVote } from "./types";
 import { ResponseError } from "../global/api";
+import { Video } from './../../model/video'
 
 export const getVideos = async (data: VideoRequest) => {
   try {
-    const res = (await get<VideoResponse[]>("/api/videos")) as VideoResponse[];
+    const res = (await get<Video[]>("/api/videos")) as Video[];
     return res;
   } catch (error: any) {
     console.log('error', error.response.data);

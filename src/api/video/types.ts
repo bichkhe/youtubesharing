@@ -2,7 +2,6 @@
 export interface VideoRequest {
 }
 
-
 export interface VideoResponse {
   id: number;
   linkUrl: string;

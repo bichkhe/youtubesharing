@@ -9,7 +9,7 @@ import { AUTH_TOKEN, isResponseError } from "./api/global/api";
 import { logout } from "./api/auth";
 import { notifications } from "@mantine/notifications";
 import { IconCheck, IconSettings } from "@tabler/icons-react";
-
+import { HeaderLogo } from "./components/Header/Header";
 export function Layout(props: { children: React.ReactNode }) {
     const [opened, { toggle }] = useDisclosure();
     const isLoggedIn = localStorage.getItem(AUTH_TOKEN) != null
@@ -46,7 +46,7 @@ export function Layout(props: { children: React.ReactNode }) {
                             display: 'flex',
                             alignItems: 'center'
                         }}>
-                            <Header />
+                            <HeaderLogo />
                         </Box>
                         <Group
                             visibleFrom="sm"
@@ -64,7 +64,6 @@ export function Layout(props: { children: React.ReactNode }) {
                             {isLoggedIn && <> <Button onClick={handleLogout} variant="default">Logout</Button>
                                 <Button component={Link} to="/youtubesharing" variant="filled">Sharing</Button>
                             </>}
-
                         </Group>
                     </Container>
                 </AppShell.Header>

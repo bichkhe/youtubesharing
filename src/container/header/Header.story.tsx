@@ -1,7 +1,9 @@
-import { Welcome } from './Header';
+import { Header } from './Header';
 
 export default {
-  title: 'Welcome',
+  title: 'Header',
 };
 
-export const Usage = () => <Welcome />;
+export const Usage = () => <Header opened={false} toggle={function (): void {
+  throw new Error('Function not implemented.');
+}} />;

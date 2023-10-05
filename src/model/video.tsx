@@ -1,15 +1,18 @@
 export interface Video {
     id: number;
     linkUrl: string;
-    votedUp: number;
-    votedDown: number;
-    voted: string; // 0: is not voted yet, 1: up, 2 down
     email: string;
-    createdAt: string;
     title: string;
     content?: string;
-}
+    votedUp: number;
+    votedDown: number;
+    published: boolean,
+    authorId: number;
+    createdAt?: string,
+    updatedAt?: string,
 
+    voted?: string;
+}
 export interface VideoForSharing {
     url: string;
     title: string;

@@ -4,7 +4,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { Header } from "../container/header/Header";
 import { VideoCard } from "../components/Card/VideoCard";
 import { useEffect, useState } from 'react';
-import { VideoResponse } from '../api/video/types';
+import { Video, VideoResponse } from '../api/video/types';
 import { Layout } from "../layout";
 import { getVideos } from "../api/video";
 import { isResponseError } from "../api/global/api";
@@ -13,7 +13,7 @@ import { useLocation } from "react-router-dom";
 export function HomePage() {
   console.log('go HomePage');
   const [opened, { toggle }] = useDisclosure();
-  const [videos, setVideos] = useState<VideoResponse[]>([
+  const [videos, setVideos] = useState<Video[]>([
     // {
     //   id: 1,
     //   linkUrl: 'https://www.youtube.com/embed/mzJ4vCjSt28',

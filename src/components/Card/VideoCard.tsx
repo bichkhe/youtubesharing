@@ -1,7 +1,7 @@
 import { Flex, Text, Card, Group, Badge, Button, AspectRatio, Grid, ActionIcon, rem, Container, Box, Tooltip, Title } from '@mantine/core';
 import { IconCheck, IconTemperature, IconThumbDown, IconThumbUp, IconX } from '@tabler/icons-react';
 import classes from './VideoCard.module.css';
-import { Video } from '@/model/movie';
+import { Video } from '../../model/video';
 import { voteYoutubeVideo } from '../../api/video';
 import { isResponseError } from '../../api/global/api';
 import { notifications } from '@mantine/notifications';

@@ -17,14 +17,18 @@ export default meta;
 type Story = StoryObj<typeof VideoCard>;
 
 const video = {
-	id: 4,
-	url: 'https://www.youtube.com/embed/mzJ4vCjSt28',
-	votedup: 2023,
-	votedown: 102,
-	voted: 1,
-	shared_at: '2023-30-09',
-	shared_by: 'mr.bichkhe@gmail.com',
-	title: 'Sugar - Maroon 5'
+	"id": 7,
+	"createdAt": "2023-10-04T15:23:09.398Z",
+	"linkUrl": "https://www.youtube.com/embed/uexouAOMuHM?si=4P3XeZ7glgnbVQ7W",
+	"updatedAt": "2023-10-05T13:43:06.467Z",
+	"title": "Mua và bán bitcoin bằng các loại thẻ quà tặng",
+	"content": "Mua và bán bitcoin bằng các loại thẻ quà tặng",
+	"published": true,
+	"viewCount": 0,
+	"authorId": 1,
+	"email": "mr.bichkhe@gmail.com",
+	"votedUp": 0,
+	"votedDown": 2
 };
 export const Default: Story = {
 	render: () => <VideoCard video={video} />,
