@@ -13,6 +13,10 @@ const router = createBrowserRouter([
     element: <AuthPage />,
   },
   {
+    path: '/youtubeboard',
+    element: <HomePage />,
+  },
+  {
     path: '/youtubesharing',
     element: <YoutubeSharingPage />,
   },

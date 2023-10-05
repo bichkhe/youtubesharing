@@ -31,3 +31,13 @@
     /* display: none */
   }
 }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    justify-content: flex-start;
+  }
+}

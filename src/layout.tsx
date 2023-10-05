@@ -8,29 +8,10 @@ import classes from './layout.module.css';
 import { AUTH_TOKEN, isResponseError } from "./api/global/api";
 import { logout } from "./api/auth";
 import { notifications } from "@mantine/notifications";
-import { IconCheck, IconSettings } from "@tabler/icons-react";
+import { IconBrandYoutube, IconCheck, IconLogin, IconRegistered, IconSettings, IconShare } from "@tabler/icons-react";
 import { HeaderLogo } from "./components/Header/Header";
 export function Layout(props: { children: React.ReactNode }) {
     const [opened, { toggle }] = useDisclosure();
-    const isLoggedIn = localStorage.getItem(AUTH_TOKEN) != null
-    const [refesh, setRefresh] = useState(false)
-    const navigate = useNavigate()
-    const handleLogout = async () => {
-        const res = await logout()
-        localStorage.clear()
-        if (!isResponseError(res)) {
-            notifications.show({
-                color: 'green',
-                title: 'Logout Successfully',
-                message: '',
-                autoClose: true,
-                icon: <IconCheck />,
-            })
-            navigate('/')
-            navigate(0)
-            // setRefresh(!refesh)
-        }
-    }
     return (
         <>
             <AppShell
@@ -39,50 +20,32 @@ export function Layout(props: { children: React.ReactNode }) {
                 navbar={{ width: { sm: 0, lg: 0 }, breakpoint: 'sm', collapsed: { mobile: !opened } }}
             >
                 <AppShell.Header>
-                    <Container className={classes.header}>
-                        <Burger style={{
-                        }} opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-                        <Box style={{
-                            display: 'flex',
-                            alignItems: 'center'
-                        }}>
-                            <HeaderLogo />
-                        </Box>
-                        <Group
-                            visibleFrom="sm"
-                            style={{
-                            }}
-                        >
-                            {!isLoggedIn && <>
-                                <Link to={"/auth"} state={{ mode: 'register' }}>
-                                    <Button variant="default">Register</Button>
-                                </Link>
-                                <Link to={"/auth"} state={{ mode: 'login' }}>
-                                    <Button variant="filled">Login</Button>
-                                </Link>
-                            </>}
-                            {isLoggedIn && <> <Button onClick={handleLogout} variant="default">Logout</Button>
-                                <Button component={Link} to="/youtubesharing" variant="filled">Sharing</Button>
-                            </>}
-                        </Group>
-                    </Container>
+                    <Header opened={false} toggle={toggle} />
                 </AppShell.Header>
                 <AppShell.Navbar p="md" hiddenFrom="sm">
                     <Menu shadow="md" width={200}>
                         <Menu.Label>Authentication</Menu.Label>
-                        <Menu.Item leftSection={<IconSettings style={{ width: rem(14), height: rem(14) }} />}>
-                            Login
-                        </Menu.Item>
-                        <Menu.Item leftSection={<IconSettings style={{ width: rem(14), height: rem(14) }} />}>
-                            Register
-                        </Menu.Item>
+                        <Link style={{ textDecoration: 'none' }} to={'/auth'} state={{ mode: "login" }} >
+                            <Menu.Item leftSection={<IconLogin style={{ width: rem(14), height: rem(14) }} />}>
+                                Login
+                            </Menu.Item>
+                        </Link>
+                        <Link style={{ textDecoration: 'none' }} to={'/auth'} state={{ mode: "register" }}>
+                            <Menu.Item leftSection={<IconRegistered style={{ width: rem(14), height: rem(14) }} />}>
+                                Register
+                            </Menu.Item>
+                        </Link>
                         <Menu.Label>Features</Menu.Label>
-                        <Menu.Item leftSection={<IconSettings style={{ width: rem(14), height: rem(14) }} />}>
-                            Youtube Sharing
-                        </Menu.Item>
-                        <Menu.Item leftSection={<IconSettings style={{ width: rem(14), height: rem(14) }} />}>
-                            Youtube Board
-                        </Menu.Item>
+                        <Link style={{ textDecoration: 'none' }} to={'/youtubeboard'}>
+                            <Menu.Item leftSection={<IconBrandYoutube style={{ width: rem(14), height: rem(14) }} />}>
+                                Youtube Board
+                            </Menu.Item>
+                        </Link>
+                        <Link style={{ textDecoration: 'none' }} to={'/youtubesharing'} >
+                            <Menu.Item leftSection={<IconShare style={{ width: rem(14), height: rem(14) }} />}>
+                                Youtube Sharing
+                            </Menu.Item>
+                        </Link>
                     </Menu>
                 </AppShell.Navbar>
 
