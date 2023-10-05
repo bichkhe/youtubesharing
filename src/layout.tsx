@@ -27,6 +27,7 @@ export function Layout(props: { children: React.ReactNode }) {
                 icon: <IconCheck />,
             })
             navigate('/')
+            navigate(0)
             // setRefresh(!refesh)
         }
     }

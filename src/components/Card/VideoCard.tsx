@@ -13,7 +13,7 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 	const [video_, setVideo] = useState<Video>(video);
 	const handleVoteUp = async () => {
 		const res = await voteYoutubeVideo({
-			id: video_.id,
+			id: video.id,
 			vote: "UP"
 		})
 		if (!isResponseError(res)) {
@@ -24,7 +24,9 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 				autoClose: true,
 				icon: <IconCheck />,
 			})
-			setVideo(res as unknown as Video)
+			let videoTmp = res as unknown as Video;
+			videoTmp.voted = "UP"
+			setVideo(videoTmp)
 		} else {
 			notifications.show({
 				color: 'red',
@@ -49,7 +51,10 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 				autoClose: true,
 				icon: <IconCheck />,
 			})
-			setVideo(res as unknown as Video)
+			let videoTmp = res as unknown as Video;
+			videoTmp.voted = "DOWN"
+			setVideo(videoTmp)
+			console.log('video1:', res)
 		} else {
 			notifications.show({
 				color: 'red',
@@ -77,11 +82,11 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 				<Box className={classes.videoInfo}>
 					<Card h="280px" shadow='md' className={classes.videoInfoCard} >
 						<Group justify="space-between" className={classes.titleWrapper}>
-							<Tooltip label={video.title}>
+							<Tooltip label={video_.title}>
 								<Text c="red" size="lg" fw={800}
 									fz="1.5rem"
 									className={classes.title}>
-									{video.title}
+									{video_.title}
 								</Text>
 							</Tooltip>
 							<div style={{
@@ -89,8 +94,8 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 								alignItems: 'center',
 								gap: '5px'
 							}}>
-								{video.voted && <Text fw={400} fz={14}>You voted</Text>}
-								{video.voted && video.voted == "UP" && <ActionIcon
+								{video_.voted && <Text fw={400} fz={14}>You voted</Text>}
+								{video_.voted && video_.voted == "UP" && <ActionIcon
 									p="xs"
 									size="xl"
 									aria-label="Gradient action icon"

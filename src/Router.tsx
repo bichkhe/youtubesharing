@@ -1,7 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { HomePage } from './pages/Home.page';
 import { AuthPage } from './pages/Auth.page';
-import { YoutubeBoardPage } from './pages/YoutubeBoard.page';
 import { YoutubeSharingPage } from './pages/YoutubeSharing.page';
 
 const router = createBrowserRouter([
@@ -12,10 +11,6 @@ const router = createBrowserRouter([
   {
     path: '/auth',
     element: <AuthPage />,
-  },
-  {
-    path: '/youtubeboard',
-    element: <YoutubeBoardPage />,
   },
   {
     path: '/youtubesharing',

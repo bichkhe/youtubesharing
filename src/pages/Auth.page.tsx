@@ -118,6 +118,15 @@ export function AuthPage(props: AuthPageProps) {
             })
         }
     }
+    const handleOAuth = () => {
+        notifications.show({
+            color: 'green',
+            title: 'This feature is coming soon. Please wait',
+            message: '',
+            autoClose: true,
+            icon: <IconCheck />,
+        })
+    }
 
     return (
         <>
@@ -137,7 +146,7 @@ export function AuthPage(props: AuthPageProps) {
                         Welcome to Youtube Sharing, {type} with
                     </Text>
                     <Group grow mb="md" mt="md">
-                        <GoogleButton radius="xl">Google</GoogleButton>
+                        <GoogleButton radius="xl" onClick={handleOAuth}>Google</GoogleButton>
                         <TwitterButton radius="xl">Twitter</TwitterButton>
                     </Group>
 
