@@ -17,14 +17,14 @@ import {
     Title,
     ThemeIcon,
 } from '@mantine/core';
-import { GoogleButton } from './../../components/social/GoogleButton';
-import { TwitterButton } from './../../components/social/XButton';
-import { login, register } from '../../api/auth/';
+import { GoogleButton } from '../components/social/GoogleButton';
+import { TwitterButton } from '../components/social/XButton';
+import { login, register } from '../api/auth';
 import { Link, useNavigate } from "react-router-dom";
 import { notifications } from '@mantine/notifications';
 import { IconBrandYoutubeFilled, IconCheck, IconX } from '@tabler/icons-react';
-import { LoginResponse, RegisterResponse } from '../../api/auth/types'
-import { ResponseError, isResponseError } from '../../api/global/api';
+import { LoginResponse, RegisterResponse } from '../api/auth/types'
+import { ResponseError, isResponseError } from '../api/global/api';
 import { useLocation } from 'react-router-dom'
 import { useEffect } from 'react';
 interface AuthPageProps {

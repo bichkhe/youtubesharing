@@ -1,33 +1,71 @@
 import { Flex, Text, Card, Group, Badge, Button, AspectRatio, Grid, ActionIcon, rem, Container, Box, Tooltip, Title } from '@mantine/core';
-import { IconTemperature, IconThumbDown, IconThumbUp } from '@tabler/icons-react';
+import { IconCheck, IconTemperature, IconThumbDown, IconThumbUp, IconX } from '@tabler/icons-react';
 import classes from './VideoCard.module.css';
 import { Video } from '@/model/movie';
 import { voteYoutubeVideo } from '../../api/video';
+import { isResponseError } from '../../api/global/api';
+import { notifications } from '@mantine/notifications';
+import { useState } from 'react';
 interface Props {
 	video: Video;
 };
 export const VideoCard: React.FC<Props> = ({ video }) => {
-
+	const [video_, setVideo] = useState<Video>(video);
 	const handleVoteUp = async () => {
-		await voteYoutubeVideo({
-			id: video.id,
+		const res = await voteYoutubeVideo({
+			id: video_.id,
 			vote: "UP"
 		})
+		if (!isResponseError(res)) {
+			notifications.show({
+				color: 'green',
+				title: 'You has voted up successfully',
+				message: '',
+				autoClose: true,
+				icon: <IconCheck />,
+			})
+			setVideo(res as unknown as Video)
+		} else {
+			notifications.show({
+				color: 'red',
+				title: 'Voted Failed',
+				message: res.error_message,
+				autoClose: true,
+				icon: <IconX />,
+			})
+		}
 
 	}
 	const handleVoteDown = async () => {
-		await voteYoutubeVideo({
+		const res = await voteYoutubeVideo({
 			id: video.id,
 			vote: "DOWN"
 		})
-
+		if (!isResponseError(res)) {
+			notifications.show({
+				color: 'green',
+				title: 'You has voted down successfully',
+				message: '',
+				autoClose: true,
+				icon: <IconCheck />,
+			})
+			setVideo(res as unknown as Video)
+		} else {
+			notifications.show({
+				color: 'red',
+				title: 'Voted Failed',
+				message: res.error_message,
+				autoClose: true,
+				icon: <IconX />,
+			})
+		}
 	}
 	return (
 		<>
 			<Flex className={classes.wrapper} mt="10px">
 				<Box className={classes.video}>
 					<iframe
-						src={video.linkUrl}
+						src={video_.linkUrl}
 						title="YouTube video player"
 						style={{ border: 0 }}
 						width="100%"
@@ -61,7 +99,7 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 									<IconThumbUp />
 								</ActionIcon>
 								}
-								{video.voted && video.voted == "DOWN" && <ActionIcon
+								{video_.voted && video_.voted == "DOWN" && <ActionIcon
 									p="xs"
 									size="xl"
 									ml="2px"
@@ -72,7 +110,7 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 							</div>
 						</Group>
 						<Group justify="space-between" mt="sm">
-							<Text fw={500} fz="0.8rem">Shared by: {video.email}</Text>
+							<Text fw={500} fz="0.8rem">Shared by: {video_.email}</Text>
 						</Group>
 						<Group justify="left" mt="md" gap='3px'>
 							<ActionIcon
@@ -83,7 +121,7 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 								gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
 								onClick={handleVoteUp}
 							>
-								{video.votedUp}
+								{video_.votedUp}
 								<IconThumbUp />
 							</ActionIcon>
 							<ActionIcon
@@ -94,7 +132,7 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 								gradient={{ from: 'red', to: 'yellow', deg: 90 }}
 								onClick={handleVoteDown}
 							>
-								{video.votedDown}
+								{video_.votedDown}
 								<IconThumbDown />
 							</ActionIcon>
 						</Group>
@@ -103,7 +141,7 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 							<Title size="h6" fw="500px" fz="12px">Description:</Title>
 							<Text my="10px">
 								{' '}
-								{video.content}
+								{video_.content}
 							</Text>
 						</Text>
 					</Card>

@@ -17,7 +17,7 @@ export function HomePage() {
       linkUrl: 'https://www.youtube.com/embed/mzJ4vCjSt28',
       votedUp: 100,
       votedDown: 10,
-      voted: 0,
+      voted: "UP",
       createdAt: '2023-10-04T14:38:29.845Z' as string,
       published: true,
       authorId: 1,
