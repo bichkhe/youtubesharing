@@ -23,6 +23,7 @@ export function YoutubeSharingPage() {
         if (event.currentTarget.value == '') {
             setErrorLink('')
             setLink('')
+            form.reset()
             return
         }
         const url = validateYouTubeUrl(event.currentTarget.value)
@@ -39,33 +40,37 @@ export function YoutubeSharingPage() {
             description: '',
         },
 
-        validate: {},
+        validate: {
+            title: (value: string) => (value.length > 0) ? null : 'Invalid title',
+            description: (value: string) => (value.length > 0) ? null : 'Invalid description',
+        },
     });
     const handleSubmitSharing = async () => {
-        form.validate()
-        const res = await sharingYoutubeVideo({
-            title: form.values?.title,
-            content: form.values?.description,
-            linkUrl: link,
-        })
-        if (!isResponseError(res)) {
-            notifications.show({
-                color: 'green',
-                title: 'Sharing Successfully',
-                message: '',
-                autoClose: true,
-                icon: <IconCheck />,
+        if (!form.validate().hasErrors) {
+            const res = await sharingYoutubeVideo({
+                title: form.values?.title,
+                content: form.values?.description,
+                linkUrl: link,
             })
-            // navigate('/')
-            form.reset()
-        } else {
-            notifications.show({
-                color: 'red',
-                title: 'Sharing Failed',
-                message: res.error_message,
-                autoClose: true,
-                icon: <IconX />,
-            })
+            if (!isResponseError(res)) {
+                notifications.show({
+                    color: 'green',
+                    title: 'Sharing Successfully',
+                    message: '',
+                    autoClose: true,
+                    icon: <IconCheck />,
+                })
+                // navigate('/')
+                form.reset()
+            } else {
+                notifications.show({
+                    color: 'red',
+                    title: 'Sharing Failed',
+                    message: res.error_message,
+                    autoClose: true,
+                    icon: <IconX />,
+                })
+            }
         }
     }
     return (
@@ -73,23 +78,24 @@ export function YoutubeSharingPage() {
             <Layout>
                 <Box>
                     <Input.Wrapper label="Youtube Link">
-                        <Flex justify="flex-start" gap="3px" align="center" className={classes.linkWrapper}>
-                            <Input className={classes.videoLink}
-                                error={errorLink}
-                                size="sm"
-                                onChange={(event) => handleChangeLink(event)}
-                                placeholder={link}
-                            />
-                            <Flex gap="3px">
-                                <Button onClick={handleReset} size="sm" visibleFrom="sm">Reset</Button>
+                        <form onSubmit={form.onSubmit((values) => handleSubmitSharing)}>
+                            <Flex justify="flex-start" gap="3px" align="start" className={classes.linkWrapper}>
+                                <TextInput className={classes.videoLink}
+                                    withAsterisk
+                                    error={errorLink}
+                                    size="sm"
+                                    onChange={(event) => handleChangeLink(event)}
+                                    placeholder={link}
+                                />
+                                <Flex gap="3px">
+                                    <Button onClick={handleReset} size="sm" visibleFrom="sm">Reset</Button>
+                                </Flex>
                             </Flex>
-                        </Flex>
-                        <Box maw="100%" mx="auto">
-                            <Group justify="flex-start" my="20px">
-                                <Badge leftSection={<IconId size={15} />} color="blue" onClick={toggle}>Video Information</Badge>
-                            </Group>
-                            <Collapse in={!opened} transitionDuration={500} transitionTimingFunction="linear">
-                                <form onSubmit={form.onSubmit((values) => handleSubmitSharing)}>
+                            <Box maw="100%" mx="auto">
+                                <Group justify="flex-start" my="20px">
+                                    <Badge leftSection={<IconId size={15} />} color="blue" onClick={toggle}>Video Information</Badge>
+                                </Group>
+                                <Collapse in={!opened} transitionDuration={500} transitionTimingFunction="linear">
                                     <TextInput
                                         withAsterisk
                                         label="Video Title"
@@ -104,9 +110,10 @@ export function YoutubeSharingPage() {
                                         <Button onClick={handleReset} size="sm" hiddenFrom="sm">Reset</Button>
                                         <Button onClick={handleSubmitSharing} leftSection={<IconShare3 size={15} />} type="submit">Submit</Button>
                                     </Group>
-                                </form>
-                            </Collapse>
-                        </Box>
+
+                                </Collapse>
+                            </Box>
+                        </form>
                         <Group justify="center" mt="20px">
                             <Box className={classes.videoPreview}>
                                 {link != '' && <AspectRatio ratio={16 / 9}>
