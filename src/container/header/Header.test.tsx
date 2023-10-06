@@ -3,8 +3,6 @@ import { Header } from './Header'
 import { BrowserRouter } from 'react-router-dom';
 import { mockLocalStorage } from '@test-utils';
 
-
-
 const { getItemMock, setItemMock } = mockLocalStorage();
 
 jest.mock('react-router-dom', () => {

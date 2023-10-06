@@ -13,6 +13,7 @@ export interface Video {
 
     voted?: string;
 }
+
 export interface VideoForSharing {
     url: string;
     title: string;

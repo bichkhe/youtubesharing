@@ -1,5 +1,5 @@
 
-import { useToggle, upperFirst } from '@mantine/hooks';
+import { useToggle, upperFirst, useDisclosure } from '@mantine/hooks';
 import { useForm } from '@mantine/form';
 import {
     TextInput,
@@ -16,6 +16,9 @@ import {
     Container,
     Title,
     ThemeIcon,
+    Loader,
+    Box,
+    LoadingOverlay,
 } from '@mantine/core';
 import { GoogleButton } from '../components/social/GoogleButton';
 import { TwitterButton } from '../components/social/XButton';
@@ -34,8 +37,8 @@ export function AuthPage(props: AuthPageProps) {
     const location = useLocation()
     const { mode } = location.state
     let navigate = useNavigate();
-    console.log('mode:', props.mode, mode);
     const [type, toggle] = useToggle(['login', 'register']);
+    const [visible, loader] = useDisclosure(false);
     useEffect(() => {
         toggle(mode)
     }, [mode])
@@ -55,14 +58,17 @@ export function AuthPage(props: AuthPageProps) {
     });
 
     const handleAuth = async () => {
-        if (type == "login") {
-            handleLogin()
-        } else {
-            handleRegister()
-        }
+        loader.open()
+        setTimeout(function () {
+            if (type == "login") {
+                handleLogin()
+            } else {
+                handleRegister()
+            }
+            loader.close()
+        }, 1000);
     }
     const handleLogin = async () => {
-        console.log('handleLogin:', form.values)
         form.validate()
 
         const req = {
@@ -140,71 +146,72 @@ export function AuthPage(props: AuthPageProps) {
                     </Link>
                     Youtube Sharing
                 </Group>
+                <Box pos="relative">
+                    <LoadingOverlay visible={visible} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} />
+                    <Paper withBorder shadow="md" p={30} mt={30} radius="xs">
+                        <Text size="lg" fw={700}>
+                            Welcome to Youtube Sharing, {type} with
+                        </Text>
+                        <Group grow mb="md" mt="md">
+                            <GoogleButton radius="xl" onClick={handleOAuth}>Google</GoogleButton>
+                            <TwitterButton radius="xl">Twitter</TwitterButton>
+                        </Group>
 
-                <Paper withBorder shadow="md" p={30} mt={30} radius="xs">
-                    <Text size="lg" fw={700}>
-                        Welcome to Youtube Sharing, {type} with
-                    </Text>
-                    <Group grow mb="md" mt="md">
-                        <GoogleButton radius="xl" onClick={handleOAuth}>Google</GoogleButton>
-                        <TwitterButton radius="xl">Twitter</TwitterButton>
-                    </Group>
+                        <Divider label="Or continue with email" labelPosition="center" my="lg" />
+                        <form onSubmit={form.onSubmit(() => { handleAuth() })}>
+                            <Stack>
+                                {type === 'register' && (
+                                    <TextInput
+                                        label="Name"
+                                        placeholder="Your name"
+                                        value={form.values.name}
+                                        onChange={(event) => form.setFieldValue('name', event.currentTarget.value)}
+                                        radius="md"
+                                    />
+                                )}
 
-                    <Divider label="Or continue with email" labelPosition="center" my="lg" />
-
-                    <form onSubmit={form.onSubmit(() => { handleAuth() })}>
-                        <Stack>
-                            {type === 'register' && (
                                 <TextInput
-                                    label="Name"
-                                    placeholder="Your name"
-                                    value={form.values.name}
-                                    onChange={(event) => form.setFieldValue('name', event.currentTarget.value)}
+                                    required
+                                    label="Email"
+                                    placeholder="bichkhe@youtubesharing.vn"
+                                    value={form.values.email}
+                                    onChange={(event) => form.setFieldValue('email', event.currentTarget.value)}
+                                    error={form.errors.email && 'Invalid email'}
                                     radius="md"
                                 />
-                            )}
 
-                            <TextInput
-                                required
-                                label="Email"
-                                placeholder="bichkhe@youtubesharing.vn"
-                                value={form.values.email}
-                                onChange={(event) => form.setFieldValue('email', event.currentTarget.value)}
-                                error={form.errors.email && 'Invalid email'}
-                                radius="md"
-                            />
-
-                            <PasswordInput
-                                required
-                                label="Password"
-                                placeholder="Your password"
-                                value={form.values.password}
-                                onChange={(event) => form.setFieldValue('password', event.currentTarget.value)}
-                                error={form.errors.password && ['Password should include at least 6 characters']}
-                                radius="md"
-                            />
-
-                            {type === 'register' && (
-                                <Checkbox
-                                    label="I accept terms and conditions"
-                                    checked={form.values.terms}
-                                    onChange={(event) => form.setFieldValue('terms', event.currentTarget.checked)}
+                                <PasswordInput
+                                    required
+                                    label="Password"
+                                    placeholder="Your password"
+                                    value={form.values.password}
+                                    onChange={(event) => form.setFieldValue('password', event.currentTarget.value)}
+                                    error={form.errors.password && ['Password should include at least 6 characters']}
+                                    radius="md"
                                 />
-                            )}
-                        </Stack>
 
-                        <Group justify="space-between" mt="xl">
-                            <Anchor component="button" type="button" c="dimmed" onClick={() => toggle()} size="xs">
-                                {type === 'register'
-                                    ? 'Already have an account? Login'
-                                    : "Don't have an account? Register"}
-                            </Anchor>
-                            <Button type="submit" radius="xl">
-                                {upperFirst(type)}
-                            </Button>
-                        </Group>
-                    </form>
-                </Paper>
+                                {type === 'register' && (
+                                    <Checkbox
+                                        label="I accept terms and conditions"
+                                        checked={form.values.terms}
+                                        onChange={(event) => form.setFieldValue('terms', event.currentTarget.checked)}
+                                    />
+                                )}
+                            </Stack>
+
+                            <Group justify="space-between" mt="xl">
+                                <Anchor component="button" type="button" c="dimmed" onClick={() => toggle()} size="xs">
+                                    {type === 'register'
+                                        ? 'Already have an account? Login'
+                                        : "Don't have an account? Register"}
+                                </Anchor>
+                                <Button type="submit" radius="xl">
+                                    {upperFirst(type)}
+                                </Button>
+                            </Group>
+                        </form>
+                    </Paper>
+                </Box>
             </Container >
         </>
     );

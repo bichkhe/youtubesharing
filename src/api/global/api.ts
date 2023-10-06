@@ -48,9 +48,6 @@ export const post = async <Data>(url: string, data: any) => {
 	if (!response) {
 		return null;
 	}
-	if (response != null && response.status) {
-		console.log("status:", response.status);
-	}
 	return response.data as Data;
 };
 export const get = async <Data>(url: string) => {

@@ -1,5 +1,5 @@
 
-import { Box, Group, Text } from "@mantine/core";
+import { Box, Group, Pagination, Text } from "@mantine/core";
 import { useDisclosure } from '@mantine/hooks';
 import { VideoCard } from "../components/Card/VideoCard";
 import { useEffect, useState } from 'react';
@@ -9,8 +9,9 @@ import { getVideos } from "../api/video";
 import { isResponseError } from "../api/global/api";
 
 export function HomePage() {
-  console.log('go HomePage');
   const [opened, { toggle }] = useDisclosure();
+  const [activePage, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
   const [videos, setVideos] = useState<Video[]>([
     // {
     //   id: 1,
@@ -27,23 +28,35 @@ export function HomePage() {
     // },
   ])
 
-  const fetchVideos = async () => {
-    const videos = await getVideos({})
-    if (!isResponseError(videos)) {
-      setVideos(videos)
+  const fetchVideos = async (page: number, pageSize: number) => {
+    const res = await getVideos({
+      page: page,
+      pageSize: pageSize,
+    })
+    if (!isResponseError(res)) {
+      setVideos(res.videos)
+      setTotalPage(res.totalPage)
     }
   }
+  const handleChangePage = (value: number) => {
+    setPage(value)
+    fetchVideos(value, 3)
+  }
   useEffect(() => {
-    fetchVideos()
+    fetchVideos(1, 3)
   }, [])
 
   return (
     <>
       <Layout>
-        <Box>
+        <Box >
           {videos.length > 0 && videos.map((item, _) => (
-            <VideoCard video={item} />
+            <VideoCard video={item} key={item.id} />
           ))}
+          <Group justify="center" py="50px">
+            {videos.length > 0 &&
+              <Pagination total={totalPage} value={activePage} onChange={(value) => handleChangePage(value)} />}
+          </Group>
           {
             videos.length == 0 &&
             <Group justify="center" align="center">

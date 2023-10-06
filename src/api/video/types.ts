@@ -1,22 +1,15 @@
+import { Video } from "../../model/video";
 
 export interface VideoRequest {
+  page: number;
+  pageSize: number;
 }
 
 export interface VideoResponse {
-  id: number;
-  linkUrl: string;
-  email: string;
-  title: string;
-  content?: string;
-  votedUp: number;
-  votedDown: number;
-  published: boolean,
-  authorId: number;
-  createdAt?: string,
-  updatedAt?: string,
-
-  // voting status of user creating this request
-  voted: string;
+  videos: Video[]
+  totalPage: number;
+  pageSize?: number;
+  currentPage?: number;
 }
 export interface VideoForSharing {
   linkUrl: string;

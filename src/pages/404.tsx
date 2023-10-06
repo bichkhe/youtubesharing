@@ -1,5 +1,5 @@
 
-import { Box, Text } from "@mantine/core";
+import { Box, Stack, Text } from "@mantine/core";
 import { Layout } from "../layout";
 import { IconError404 } from "@tabler/icons-react";
 
@@ -7,10 +7,10 @@ export function NotFoundPage() {
   return (
     <>
       <Layout>
-        <Box>
-          <IconError404 size={100} />
-          <Text>oops! Not found page</Text>
-        </Box>
+        <Stack justify="center" align="center">
+          <IconError404 size={400} />
+          <Text size="xl" fw={700}>OOPS! NOT FOUND PAGE</Text>
+        </Stack>
       </Layout>
     </>
   );
