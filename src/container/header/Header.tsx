@@ -20,7 +20,7 @@ export function Header({ opened, toggle }: HeaderProps) {
   // const [opened, { toggle }] = useDisclosure();
   const isLoggedIn = localStorage.getItem(AUTH_TOKEN) != null
   const [refesh, setRefresh] = useState(false)
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const handleLogout = async () => {
     const res = await logout()
     localStorage.clear()
@@ -32,8 +32,8 @@ export function Header({ opened, toggle }: HeaderProps) {
         autoClose: true,
         icon: <IconCheck />,
       })
-      navigate('/')
-      navigate(0)
+      // navigate('/')
+      // navigate(0)
       // setRefresh(!refesh)
     }
   }

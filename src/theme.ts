@@ -14,11 +14,11 @@ const theme = createTheme({
     xl: '90em',
   },
   components: {
-    Container: Container.extend({
-      classNames: (_, { size }) => ({
-        root: cx({ [classes.responsiveContainer]: size === 'responsive' }),
-      }),
-    }),
+    // Container: Container.extend({
+    //   classNames: (_, { size }) => ({
+    //     root: cx({ [classes.responsiveContainer]: size === 'responsive' }),
+    //   }),
+    // }),
   },
   headings: {
     fontFamily: 'Roboto, sans-serif',

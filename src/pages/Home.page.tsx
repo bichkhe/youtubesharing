@@ -1,14 +1,12 @@
 
-import { AppShell, Box, Burger, Button, Container, Flex, Group, MantineTheme, ScrollArea, createTheme } from "@mantine/core";
+import { Box } from "@mantine/core";
 import { useDisclosure } from '@mantine/hooks';
-import { Header } from "../container/header/Header";
 import { VideoCard } from "../components/Card/VideoCard";
 import { useEffect, useState } from 'react';
-import { Video, VideoResponse } from '../api/video/types';
+import { Video } from "../model/video";
 import { Layout } from "../layout";
 import { getVideos } from "../api/video";
 import { isResponseError } from "../api/global/api";
-import { useLocation } from "react-router-dom";
 
 export function HomePage() {
   console.log('go HomePage');
