@@ -10,6 +10,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { logout } from '../../api/auth';
 import React, { useState } from 'react';
 import { HeaderLogo } from '../../components/Header/Header';
+import { isTokenExpired } from '../../util/token';
 
 export interface HeaderProps {
   opened: boolean;
@@ -20,7 +21,7 @@ export function Header({ opened, toggle }: HeaderProps) {
   // const [opened, { toggle }] = useDisclosure();
   const isLoggedIn = localStorage.getItem(AUTH_TOKEN) != null
   const [refesh, setRefresh] = useState(false)
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const handleLogout = async () => {
     const res = await logout()
     localStorage.clear()
@@ -32,8 +33,8 @@ export function Header({ opened, toggle }: HeaderProps) {
         autoClose: true,
         icon: <IconCheck />,
       })
-      // navigate('/')
-      // navigate(0)
+      navigate('/')
+      navigate(0)
       // setRefresh(!refesh)
     }
   }
@@ -57,7 +58,7 @@ export function Header({ opened, toggle }: HeaderProps) {
             <Link to={"/auth"} state={{ mode: 'register' }}>
               <Button variant="default">Register</Button>
             </Link>
-            <Link to={"/auth"} state={{ mode: 'login' }}>
+            <Link data-testid="login" to={"/auth"} state={{ mode: 'login' }}>
               <Button variant="filled">Login</Button>
             </Link>
           </>}

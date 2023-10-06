@@ -1,5 +1,5 @@
 
-import { Box } from "@mantine/core";
+import { Box, Group, Text } from "@mantine/core";
 import { useDisclosure } from '@mantine/hooks';
 import { VideoCard } from "../components/Card/VideoCard";
 import { useEffect, useState } from 'react';
@@ -41,9 +41,15 @@ export function HomePage() {
     <>
       <Layout>
         <Box>
-          {videos.map((item, _) => (
+          {videos.length > 0 && videos.map((item, _) => (
             <VideoCard video={item} />
           ))}
+          {
+            videos.length == 0 &&
+            <Group justify="center" align="center">
+              <Text>Not found any youtube videos</Text>
+            </Group>
+          }
         </Box>
       </Layout>
     </>

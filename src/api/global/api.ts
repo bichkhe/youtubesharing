@@ -1,8 +1,10 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 
 export const AUTH_TOKEN = "youtubesharing.auth_token"
+// import { VITE_BASE_URL } from '../../model/constant'
 export const api = axios.create({
-	baseURL: "http://192.168.0.10:9800",
+	baseURL: process.env.VITE_BASE_URL || "192.168.0.10:9800",
+	// baseURL: "192.168.0.10:9800",
 	headers: {
 		"Content-Type": "application/json",
 		"Access-Control-Allow-Origin": "*",

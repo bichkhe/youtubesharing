@@ -122,7 +122,7 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 								variant="gradient"
 								p="xs"
 								size="xxl"
-								aria-label="Gradient action icon"
+								aria-label="vote-up-btn"
 								gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
 								onClick={handleVoteUp}
 							>
@@ -133,7 +133,7 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 								variant="gradient"
 								p="xs"
 								size="xxl"
-								aria-label="Gradient action icon"
+								aria-label="vote-down-btn"
 								gradient={{ from: 'red', to: 'yellow', deg: 90 }}
 								onClick={handleVoteDown}
 							>
@@ -142,13 +142,12 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 							</ActionIcon>
 						</Group>
 
-						<Text size="sm" c="dimmed" lineClamp={4} inline my="10px">
-							<Title size="h6" fw="500px" fz="12px">Description:</Title>
-							<Text my="10px">
-								{' '}
+						<Box>
+							<Text size="h6" fw="500px" fz="12px">Description:</Text>
+							<Text size="sm" c="dimmed" lineClamp={4} inline my="10px">
 								{video_.content}
 							</Text>
-						</Text>
+						</Box>
 					</Card>
 				</Box>
 			</Flex >
