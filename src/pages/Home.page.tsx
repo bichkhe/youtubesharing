@@ -5,7 +5,7 @@ import { VideoCard } from "../components/Card/VideoCard";
 import { useEffect, useState } from 'react';
 import { Video } from "../model/video";
 import { Layout } from "../layout";
-import { getVideos } from "../api/video";
+import { getVideos, voteYoutubeVideo } from "../api/video";
 import { isResponseError } from "../api/global/api";
 
 export function HomePage() {
@@ -42,6 +42,7 @@ export function HomePage() {
     setPage(value)
     fetchVideos(value, 3)
   }
+
   useEffect(() => {
     fetchVideos(1, 3)
   }, [])

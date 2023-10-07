@@ -57,7 +57,7 @@ export function AuthPage(props: AuthPageProps) {
         },
 
         validate: {
-            email: (val) => (/^\S+@\S+$/.test(val) ? null : 'Invalid email'),
+            email: (val) => (/^\S+@\S+$/.test(val) ? null : 'Invalid email1x2'),
             password: (val) => (val.length <= 6 ? 'Password should include at least 6 characters' : null),
         },
     });
@@ -172,6 +172,7 @@ export function AuthPage(props: AuthPageProps) {
                                         value={form.values.name}
                                         onChange={(event) => form.setFieldValue('name', event.currentTarget.value)}
                                         radius="md"
+                                        data-testid="name-field-testid"
                                     />
                                 )}
 
@@ -183,6 +184,7 @@ export function AuthPage(props: AuthPageProps) {
                                     onChange={(event) => form.setFieldValue('email', event.currentTarget.value)}
                                     error={form.errors.email && 'Invalid email'}
                                     radius="md"
+                                    data-testid="email-field-testid"
                                 />
 
                                 <PasswordInput
@@ -193,6 +195,7 @@ export function AuthPage(props: AuthPageProps) {
                                     onChange={(event) => form.setFieldValue('password', event.currentTarget.value)}
                                     error={form.errors.password && ['Password should include at least 6 characters']}
                                     radius="md"
+                                    data-testid="password-field-testid"
                                 />
 
                                 {type === 'register' && (
@@ -200,17 +203,20 @@ export function AuthPage(props: AuthPageProps) {
                                         label="I accept terms and conditions"
                                         checked={form.values.terms}
                                         onChange={(event) => form.setFieldValue('terms', event.currentTarget.checked)}
+                                        data-testid="term-field-testid"
                                     />
                                 )}
                             </Stack>
 
                             <Group justify="space-between" mt="xl">
-                                <Anchor component="button" type="button" c="dimmed" onClick={() => toggle()} size="xs">
+                                <Anchor component="button" type="button" c="dimmed" onClick={() => toggle()} size="xs"
+                                    data-testid="change-mode-testid"
+                                >
                                     {type === 'register'
                                         ? 'Already have an account? Login'
                                         : "Don't have an account? Register"}
                                 </Anchor>
-                                <Button type="submit" radius="xl">
+                                <Button type="submit" radius="xl" data-testid="submit-btn-testid">
                                     {upperFirst(type)}
                                 </Button>
                             </Group>

@@ -21,21 +21,22 @@ jest.mock('react-router-dom', () => ({
 describe('Logo component', () => {
     it('should has Youtube Sharing Text', () => {
         render(
-            <BrowserRouter>
-                <Logo />
-            </BrowserRouter>
+            <Logo />
         );
         expect(screen.getByText("Youtube Sharing")).toBeInTheDocument();
     });
 });
 
 
-// describe('Logo component', () => {
-//     it('should has a link is callable ', () => {
-//         render(<Logo />);
-//         expect(screen.findAllByTestId("/link-home/")).toBeCalled()
-//     });
-// });
+describe('Logo component', () => {
+    it('should has a link is callable ', () => {
+        render(<Logo />);
+        // Find the link by its data-testid attribute
+        const linkElement = screen.getByTestId('link-home');
+        // Assert that the link element is present
+        expect(linkElement).toBeInTheDocument();
+    });
+});
 
 // describe('Logo component', () => {
 //     it('should routing to Home Page when clicking to logo', () => {

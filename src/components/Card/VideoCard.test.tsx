@@ -27,9 +27,9 @@ describe('Logo component', () => {
             "votedDown": 2
         };
 
-        render(<BrowserRouter>
+        render(
             <VideoCard video={video} />
-        </BrowserRouter>);
+        );
         expect(screen.getByText("Mua và bán bitcoin bằng các loại thẻ quà tặng")).toBeInTheDocument();
     });
 });
@@ -51,16 +51,16 @@ describe('Logo component', () => {
             "votedDown": 2,
             "voted": "UP",
         };
-        render(<BrowserRouter>
+        render(
             <VideoCard video={video} />
-        </BrowserRouter>);
-        expect(screen.getByText("You voted")).toBeInTheDocument();
-        // expect(screen.findByText("You voted")).toBeInTheDocument();
+        );
+        expect(screen.getByText("You voted")).toBeInTheDocument()
     });
 });
 
-describe('Logo component', () => {
+describe('Logo component: missing voted field', () => {
     it('should not show vote icon of user ', () => {
+        //Missing voted field
         const video = {
             "id": 7,
             "createdAt": "2023-10-04T15:23:09.398Z",
@@ -76,11 +76,11 @@ describe('Logo component', () => {
             "votedDown": 2,
         };
         render(<VideoCard video={video} />);
-        expect(screen.getByText("You voted")).toBeInvalid()
+        expect(screen.queryByText("You voted")).toBeNull()
     });
 });
 
-describe('Logo component', () => {
+describe('Logo component: clicking voted', () => {
     it('should call API when click icon vote up/down ', () => {
         const video = {
             "id": 7,
@@ -96,9 +96,9 @@ describe('Logo component', () => {
             "votedUp": 0,
             "votedDown": 2,
         };
-        render(<BrowserRouter>
+        render(
             <VideoCard video={video} />
-        </BrowserRouter>);
+        );
     });
 });
 
