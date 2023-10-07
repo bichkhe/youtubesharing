@@ -1,5 +1,5 @@
 
-import { Box, Group, Pagination, Text } from "@mantine/core";
+import { Box, Group, LoadingOverlay, Pagination, Text } from "@mantine/core";
 import { useDisclosure } from '@mantine/hooks';
 import { VideoCard } from "../components/Card/VideoCard";
 import { useEffect, useState } from 'react';
@@ -27,8 +27,9 @@ export function HomePage() {
     //   content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
     // },
   ])
-
+  const [visible, loader] = useDisclosure(false);
   const fetchVideos = async (page: number, pageSize: number) => {
+    loader.open()
     const res = await getVideos({
       page: page,
       pageSize: pageSize,
@@ -37,6 +38,7 @@ export function HomePage() {
       setVideos(res.videos)
       setTotalPage(res.totalPage)
     }
+    loader.close()
   }
   const handleChangePage = (value: number) => {
     setPage(value)
@@ -51,6 +53,7 @@ export function HomePage() {
     <>
       <Layout>
         <Box >
+          <LoadingOverlay visible={visible} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} />
           {videos.length > 0 && videos.map((item, _) => (
             <VideoCard video={item} key={item.id} />
           ))}
