@@ -3,23 +3,26 @@ import { HomePage } from './pages/Home.page';
 import { AuthPage } from './pages/Auth.page';
 import { YoutubeSharingPage } from './pages/YoutubeSharing.page';
 import { NotFoundPage } from './pages/404';
+import { AuthGuard } from './AuthGuadr';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <HomePage />,
+    element: <AuthGuard><HomePage /></AuthGuard>,
   },
   {
     path: '/auth',
-    element: <AuthPage />,
+    element: <AuthGuard>
+      <AuthPage />
+    </AuthGuard>,
   },
   {
     path: '/youtubeboard',
-    element: <HomePage />,
+    element: <AuthGuard><HomePage /></AuthGuard>
   },
   {
     path: '/youtubesharing',
-    element: <YoutubeSharingPage />,
+    element: <AuthGuard><YoutubeSharingPage /></AuthGuard>,
   },
   {
     path: '/*',

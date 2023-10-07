@@ -54,7 +54,6 @@ export const VideoCard: React.FC<Props> = ({ video }) => {
 			let videoTmp = res as unknown as Video;
 			videoTmp.voted = "DOWN"
 			setVideo(videoTmp)
-			console.log('video1:', res)
 		} else {
 			notifications.show({
 				color: 'red',

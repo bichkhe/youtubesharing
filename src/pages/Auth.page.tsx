@@ -35,13 +35,18 @@ interface AuthPageProps {
 }
 export function AuthPage(props: AuthPageProps) {
     const location = useLocation()
-    const { mode } = location.state
+    let modeAuth = "login"
+    if (location.state) {
+        const { mode } = location.state
+        modeAuth = mode
+    }
+
     let navigate = useNavigate();
     const [type, toggle] = useToggle(['login', 'register']);
     const [visible, loader] = useDisclosure(false);
     useEffect(() => {
-        toggle(mode)
-    }, [mode])
+        toggle(modeAuth)
+    }, [modeAuth])
 
     const form = useForm({
         initialValues: {

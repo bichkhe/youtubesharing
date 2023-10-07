@@ -3,7 +3,7 @@ import { AppShell, Box, Burger, Button, Container, Group, Menu, rem, } from "@ma
 import { useDisclosure } from '@mantine/hooks';
 import { Header } from "./container/header/Header";
 import React, { useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import classes from './layout.module.css';
 import { AUTH_TOKEN, isResponseError } from "./api/global/api";
 import { logout } from "./api/auth";
