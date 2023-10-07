@@ -53,10 +53,12 @@ export function HomePage() {
     <>
       <Layout>
         <Box >
-          <LoadingOverlay visible={visible} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} />
-          {videos.length > 0 && videos.map((item, _) => (
-            <VideoCard video={item} key={item.id} />
-          ))}
+          <div>
+            <LoadingOverlay visible={visible} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} />
+            {videos.length > 0 && videos.map((item, _) => (
+              <VideoCard video={item} key={item.id} />
+            ))}
+          </div>
           <Group justify="center" py="50px">
             {videos.length > 0 &&
               <Pagination total={totalPage} value={activePage} onChange={(value) => handleChangePage(value)} />}
