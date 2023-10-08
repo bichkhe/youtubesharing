@@ -121,6 +121,23 @@ $ vite
   ➜  Local:   http://localhost:5173/
   ➜  Network: use --host to expose
 ```
+
+# Testing
+Lint
+
+```bash
+yarn prettier
+```
+Use command to testing
+
+```bash
+yarn jest
+```
+For develpement 
+```bash
+yarn jest:watch
+```
+
 # Usage
 Some features need to be implementd in the future
 - Register and Login use OAuth - Go

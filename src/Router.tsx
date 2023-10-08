@@ -1,36 +1,49 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { HomePage } from './pages/Home.page';
-import { AuthPage } from './pages/Auth.page';
-import { YoutubeSharingPage } from './pages/YoutubeSharing.page';
-import { NotFoundPage } from './pages/404';
-import { AuthGuard } from './AuthGuadr';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { HomePage } from "./pages/Home.page";
+import { AuthPage } from "./pages/Auth.page";
+import { YoutubeSharingPage } from "./pages/YoutubeSharing.page";
+import { NotFoundPage } from "./pages/404";
+import { AuthGuard } from "./AuthGuadr";
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <AuthGuard><HomePage /></AuthGuard>,
+    path: "/",
+    element: (
+      <AuthGuard>
+        <HomePage />
+      </AuthGuard>
+    ),
   },
   {
-    path: '/auth',
-    element: <AuthGuard>
-      <AuthPage />
-    </AuthGuard>,
+    path: "/auth",
+    element: (
+      <AuthGuard>
+        <AuthPage />
+      </AuthGuard>
+    ),
   },
   {
-    path: '/youtubeboard',
-    element: <AuthGuard><HomePage /></AuthGuard>
+    path: "/youtubeboard",
+    element: (
+      <AuthGuard>
+        <HomePage />
+      </AuthGuard>
+    ),
   },
   {
-    path: '/youtubesharing',
-    element: <AuthGuard><YoutubeSharingPage /></AuthGuard>,
+    path: "/youtubesharing",
+    element: (
+      <AuthGuard>
+        <YoutubeSharingPage />
+      </AuthGuard>
+    ),
   },
   {
-    path: '/*',
+    path: "/*",
     element: <NotFoundPage />,
   },
 ]);
 
 export function Router() {
-
   return <RouterProvider router={router} />;
 }

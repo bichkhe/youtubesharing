@@ -6,7 +6,7 @@ export interface VideoRequest {
 }
 
 export interface VideoResponse {
-  videos: Video[]
+  videos: Video[];
   totalPage: number;
   pageSize?: number;
   currentPage?: number;
@@ -17,12 +17,10 @@ export interface VideoForSharing {
   content?: string;
 }
 
-
 export interface VideoForVote {
   id: number;
   vote: string;
 }
-
 
 export interface VideoResponseForSharing {
   id: number;
@@ -32,10 +30,10 @@ export interface VideoResponseForSharing {
   content?: string;
   votedUp: number;
   votedDown: number;
-  published: boolean,
+  published: boolean;
   authorId: number;
-  createdAt?: string,
-  updatedAt?: string,
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface VideoResponseForVote {
@@ -46,10 +44,8 @@ export interface VideoResponseForVote {
   content?: string;
   votedUp: number;
   votedDown: number;
-  published: boolean,
+  published: boolean;
   authorId: number;
-  createdAt?: string,
-  updatedAt?: string,
+  createdAt?: string;
+  updatedAt?: string;
 }
-
-

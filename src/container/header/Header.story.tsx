@@ -1,9 +1,14 @@
-import { Header } from './Header';
+import { Header } from "./Header";
 
 export default {
-  title: 'Header',
+  title: "Header",
 };
 
-export const Usage = () => <Header opened={false} toggle={function (): void {
-  throw new Error('Function not implemented.');
-}} />;
+export const Usage = () => (
+  <Header
+    opened={false}
+    toggle={function (): void {
+      throw new Error("Function not implemented.");
+    }}
+  />
+);

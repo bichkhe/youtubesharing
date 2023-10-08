@@ -1,7 +1,7 @@
-import { HeaderLogo } from './Header';
+import { HeaderLogo } from "./Header";
 
 export default {
-  title: 'HeaderLogo',
+  title: "HeaderLogo",
 };
 
 export const Usage = () => <HeaderLogo />;

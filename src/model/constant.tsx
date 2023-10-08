@@ -1,7 +1,3 @@
-const {
-    VITE_BASE_URL: VITE_BASE_URL,
-} = import.meta.env;
+const { VITE_BASE_URL: VITE_BASE_URL } = import.meta.env;
 
-export {
-    VITE_BASE_URL
-};
+export { VITE_BASE_URL };

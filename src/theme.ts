@@ -1,17 +1,17 @@
-import { Container, createTheme, rem } from '@mantine/core';
-import classes from './layout.module.css';
-import cx from 'clsx';
+import { Container, createTheme, rem } from "@mantine/core";
+import classes from "./layout.module.css";
+import cx from "clsx";
 const theme = createTheme({
   shadows: {
-    md: '1px 1px 3px rgba(0, 0, 0, .25)',
-    xl: '5px 5px 3px rgba(0, 0, 0, .25)',
+    md: "1px 1px 3px rgba(0, 0, 0, .25)",
+    xl: "5px 5px 3px rgba(0, 0, 0, .25)",
   },
   breakpoints: {
-    xs: '30em',
-    sm: '48em',
-    md: '64em',
-    lg: '74em',
-    xl: '90em',
+    xs: "30em",
+    sm: "48em",
+    md: "64em",
+    lg: "74em",
+    xl: "90em",
   },
   components: {
     // Container: Container.extend({
@@ -21,12 +21,12 @@ const theme = createTheme({
     // }),
   },
   headings: {
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: "Roboto, sans-serif",
     sizes: {
       h1: { fontSize: rem(36) },
     },
   },
-  primaryColor: 'blue',
+  primaryColor: "blue",
 });
 
 export default theme;

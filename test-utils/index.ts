@@ -1,6 +1,6 @@
-import userEvent from '@testing-library/user-event';
+import userEvent from "@testing-library/user-event";
 
-export * from '@testing-library/react';
-export { render } from './render';
+export * from "@testing-library/react";
+export { render } from "./render";
 export { userEvent };
-export { mockLocalStorage } from './mockLocalStorage'
+export { mockLocalStorage } from "./mockLocalStorage";
